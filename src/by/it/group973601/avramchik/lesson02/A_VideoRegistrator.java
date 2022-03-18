@@ -1,7 +1,8 @@
-package by.it.a_khmelev.lesson02;
+package by.it.group973601.avramchik.lesson02;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 /*
 даны события events
 реализуйте метод calcStartTimes, так, чтобы число включений регистратора на
@@ -37,7 +38,15 @@ public class A_VideoRegistrator {
         //и теперь пропустим все покрываемые события
         //за время до конца работы, увеличивая индекс
 
+        Arrays.sort(events);
 
+        while (i < events.length - 1) {
+            result.add(events[i]);
+            double time = events[i] + workDuration;
+            while (events[i] < time) {
+                i++;
+            }
+        }
 
         return result;                        //вернем итог
     }

@@ -1,6 +1,7 @@
-package by.it.a_khmelev.lesson02;
+package by.it.group973601.dilevski.lesson02;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 /*
 даны события events
@@ -37,6 +38,15 @@ public class A_VideoRegistrator {
         //и теперь пропустим все покрываемые события
         //за время до конца работы, увеличивая индекс
 
+        Arrays.sort(events);
+        result.add(events[i]);
+        Arrays.stream(events).forEach(event -> {
+            if (!result.isEmpty()) {
+                if (event - result.get(result.size() - 1) > workDuration) {
+                    result.add(event);
+                }
+            }
+        });
 
 
         return result;                        //вернем итог
