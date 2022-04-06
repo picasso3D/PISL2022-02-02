@@ -1,5 +1,7 @@
 package by.it.group973601.vasilevskaya.lesson03;
 
+
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -44,20 +46,49 @@ public class C_HeapMax {
         private List<Long> heap = new ArrayList<>();
 
         int siftDown(int i) { //просеивание вверх
-
+            int curr = 0;
+            int leftChild = 2 * curr + 1;
+            while (leftChild < heap.size()) {
+                int max = leftChild;
+                int rightChild = leftChild + 1;
+                if (rightChild < heap.size()) {
+                    if (heap.get(rightChild).compareTo(heap.get(1)) > 0) {
+                        ++max;
+                    }
+                }
+                if (heap.get(curr).compareTo(heap.get(max)) < 0) {
+                    Long tmp = heap.get(curr);
+                    heap.set(curr, heap.get(max));
+                    heap.set(max, tmp);
+                    curr = max;
+                    leftChild = 2 * curr + 1;
+                } else break;
+            }
             return i;
         }
 
         int siftUp(int i) { //просеивание вниз
-
+            i = heap.size() - 1;
+            while (i > 0) {
+                int curr = (i - 1) / 2;
+                Long Item = heap.get(i);
+                Long Parent = heap.get(curr);
+                if (Item.compareTo(Parent) > 0) {
+                    heap.set(i, Parent);
+                    heap.set(curr, Item);
+                    i = curr;
+                } else break;
+            }
             return i;
         }
 
         void insert(Long value) { //вставка
+            heap.add(value);
+            siftUp(1);
         }
 
         Long extractMax() { //извлечение и удаление максимума
-            Long result = null;
+            Long result = heap.remove(0);
 
             return result;
         }
@@ -84,15 +115,16 @@ public class C_HeapMax {
                 if (p[0].equalsIgnoreCase("insert"))
                     heap.insert(Long.parseLong(p[1]));
                 i++;
-            //System.out.println(heap); //debug
+                //System.out.println(heap); //debug
             }
         }
         return maxValue;
     }
 
+
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
-        InputStream stream = new FileInputStream(root + "by/it/group973601/vasilevskaya/lesson03/heapData.txt");
+        InputStream stream = new FileInputStream(root + "by/it/a_khmelev/lesson03/heapData.txt");
         C_HeapMax instance = new C_HeapMax();
         System.out.println("MAX="+instance.findMaxValue(stream));
     }
