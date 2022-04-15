@@ -51,7 +51,7 @@ public class B_Sheduler {
         result = new ArrayList<>();
         //ваше решение.
         Arrays.sort(events,Comparator.comparing(key->key.stop));
-for (int i=0;i<events.length;i++){
+        for (int i=0;i<events.length;i++){
  if (events[i].start>=from && events[i].stop<=to){
      result.add(events[i]);
      from =events[i].stop;

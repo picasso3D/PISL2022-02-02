@@ -37,7 +37,7 @@ public class A_VideoRegistrator {
               double end =start+workDuration;  //вычислим момент окончания работы видеокамеры
         for (;i<events.length;i++){
             if(events[i]>end){
-                result.add(events[i]);
+                result.add(events[i]);//
                 end =events[i]+workDuration;
             }
         }

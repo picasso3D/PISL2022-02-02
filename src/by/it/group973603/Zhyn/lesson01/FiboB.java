@@ -25,6 +25,7 @@ public class FiboB {
 
     BigInteger fastB(Integer n) {
         //здесь нужно реализовать вариант с временем O(n) и памятью O(n)
+
         BigInteger []cache=new BigInteger[n+1];
 
         cache[0] =BigInteger.valueOf(0);

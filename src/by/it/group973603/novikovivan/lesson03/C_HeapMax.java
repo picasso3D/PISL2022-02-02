@@ -53,19 +53,20 @@ public class C_HeapMax {
         int getLeft (int i) { return 2 * i + 1; }
         int getRight (int i) { return 2 * i + 2; }
         int getLarger (int left, int right) {
-            if (heap.get(left) >= heap.get(right) || right == heap.size())
+            if (right >= heap.size())
+                return left;
+            if (heap.get(left) >= heap.get(right))
                 return left;
             else return right;
         }
-
         void siftDown(int i) {
             int perent = i;
             int larger;
             int left = getLeft(perent);
             int right = getRight(perent);
+            if (right >= heap.size()) return;
             larger = getLarger(left, right);
-            while (true) {
-                if (heap.get(perent) > heap.get(larger)) break;
+            while (heap.get(perent) <= heap.get(larger)) {
                 swap(perent, larger);
                 perent = larger;
                 larger = getLarger(getLeft(perent), getRight(perent));
@@ -91,6 +92,8 @@ public class C_HeapMax {
             Long result = null;
             result = heap.get(0);
             heap.set(0, heap.get(heap.size() - 1));
+            heap.remove(heap.size() - 1);
+            siftDown(0);
             return result;
         }
         //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! КОНЕЦ ЗАДАЧИ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1

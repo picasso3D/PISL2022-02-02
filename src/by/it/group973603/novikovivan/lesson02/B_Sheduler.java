@@ -68,16 +68,11 @@ public class B_Sheduler {
             result.add(temp);
             start = temp.stop;
             tempold = temp;
-            while (true) {
-                for (int i = 0; i < events.length; i++) {
-                    if (events[i].start == start) {
-                        temp = events[i];
-                        break;
-                    }
+            for (int i = 0; i < events.length; i++) {
+                if (events[i].start >= start) {
+                    temp = events[i];
+                    break;
                 }
-                if (start < to && temp == tempold)
-                    start++;
-                else break;
             }
             if (temp == tempold) break;
         }
