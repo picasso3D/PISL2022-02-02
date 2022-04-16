@@ -38,7 +38,7 @@ import java.util.Scanner;
 public class A_QSort {
 
     //отрезок
-    private class Segment  implements Comparable{
+    private class Segment  implements Comparable<Segment>{
         int start;
         int stop;
 
@@ -50,9 +50,8 @@ public class A_QSort {
         }
 
         @Override
-        public int compareTo(Object o) {
-            //подумайте, что должен возвращать компаратор отрезков
-            return 0;
+        public int compareTo(Segment o) {
+            return (o.stop - o.start) - (stop - start);
         }
     }
 
@@ -80,14 +79,52 @@ public class A_QSort {
         }
         //тут реализуйте логику задачи с применением быстрой сортировки
         //в классе отрезка Segment реализуйте нужный для этой задачи компаратор
-
-
-
-
+        qSort(segments, 0, segments.length - 1);
+        for (int i = 0; i < points.length; i++) {
+            int count = 0;
+            for (Segment segment : segments) {
+                if (points[i] <= segment.stop && points[i] >= segment.start) {
+                    count++;
+                }
+            }
+            result[i] = count;
+        }
         //!!!!!!!!!!!!!!!!!!!!!!!!!     КОНЕЦ ЗАДАЧИ     !!!!!!!!!!!!!!!!!!!!!!!!!
         return result;
     }
 
+    private void qSort(Segment[] arr, int low, int high) {
+        if (low < high) {
+            int index = partition(arr, low, high);
+            qSort(arr, low, index - 1);
+            qSort(arr, index + 1, high);
+        }
+    }
+
+    private int partition(Segment[] arr, int low, int high) {
+        int right = high;
+        int left = low;
+        Segment pivot = arr[low];
+        while(left<=right)
+        {
+            while(arr[left].compareTo(pivot) < 0)
+                left++;
+            while (arr[right].compareTo(pivot) > 0)
+                right--;
+            if(left <= right){
+                swap(arr,right,left);
+                left++;
+                right--;
+            }
+        }
+        return left;
+    }
+
+    private void swap(Segment[] arr, int first, int second) {
+        Segment swap = arr[first];
+        arr[first] = arr[second];
+        arr[second] = swap;
+    }
 
     public static void main(String[] args) throws FileNotFoundException {
         String root = System.getProperty("user.dir") + "/src/";
