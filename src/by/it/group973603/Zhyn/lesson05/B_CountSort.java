@@ -35,15 +35,15 @@ public class B_CountSort {
         int maxIndex = 10;
         int[] count = new int[maxIndex - minIndex + 1];
         int position = 0;
-
+// В соответствующей ячейке (индекс = значение) увеличиваем счётчик
         for (int i = 0; i < points.length; i++) {
             int index = points[i];
             count[index]++;
         }
         for (int i = minIndex; i < maxIndex; i++) {
-            if(count[i] != 0) {
+            if(count[i] != 0) { // идём по массиву со "счётчиками"
                 int k = 0;
-                while (k < count[i]) {
+                while (k < count[i]) {// идём по количеству значений
                     points[position++] = i;
                     k++;
                 }
